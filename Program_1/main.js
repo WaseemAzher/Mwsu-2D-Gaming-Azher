@@ -1,11 +1,11 @@
 var mainState = {
 
     preload: function() {
-        game.load.image('player', 'assets/player.png');
+        game.load.image('player', 'assets/Mario.gif');
         game.load.image('wallV', 'assets/wallVertical.png');
         game.load.image('wallH', 'assets/wallHorizontal.png');
         game.load.image('coin', 'assets/mushroom.jpg');
-        game.load.image('enemy', 'assets/enemy.png');
+        game.load.image('enemy', 'assets/Duck.png');
     },
 
     create: function() { 
@@ -125,7 +125,20 @@ var mainState = {
     },
 
     playerDie: function() {
-        game.state.start('main');
+          var coinPosition = [
+            {x: 120, y: 50}, {x: 320, y: 30}, 
+            {x: 50, y: 110}, {x: 410, y: 110}, 
+            {x: 110, y: 200}, {x: 300, y: 200} 
+        ];
+
+        for (var i = 0; i < coinPosition.length; i++) {
+            if (coinPosition[i].x == this.player.x) {
+                coinPosition.splice(i, 1);
+            }
+        }
+
+        var newPosition = game.rnd.pick(coinPosition);
+        this.player.reset(newPosition.x, newPosition.y);
     },
 };
 
