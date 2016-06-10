@@ -163,7 +163,7 @@ var mainState = {
 	
 	Deaths: function(player, enemy)
 	{
-		this.Death += 0.33;
+		this.Death += 1;
         this.DeathLabel.text = 'Deaths:' + this.Death;
 		
 		
