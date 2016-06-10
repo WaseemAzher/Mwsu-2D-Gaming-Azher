@@ -151,9 +151,10 @@ var mainState = {
 	CountDown: function()
 	{
 		this.Time -=1;
-		if(this.Time <=0)
+		if(this.Time <= 0)
 		{
-			game.state.start('Main');
+			
+			game.state.start('main');
 			
 		}
 		
