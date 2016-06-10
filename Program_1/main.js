@@ -28,18 +28,25 @@ var mainState = {
 
         this.scoreLabel = game.add.text(30, 30, 'score: 0', { font: '18px Arial', fill: '#ffffff' });
         this.score = 0;
+		
+		this.TimerLabel = game.add.text(355, 30, 'Time Left: 120', { font: '18px Arial', fill: '#ffffff' });
+        this.Time = 120;
+		
+		this.DeathLabel = game.add.text(385, 300, 'Deaths:0', { font: '18px Arial', fill: '#ffffff' });
+        this.Death = 0;
 
         this.enemies = game.add.group();
         this.enemies.enableBody = true;
         this.enemies.createMultiple(10, 'enemy');
         game.time.events.loop(2200, this.addEnemy, this);
+		game.time.events.loop(1000, this.CountDown, this);
     },
 
     update: function() {
         game.physics.arcade.collide(this.player, this.walls);
         game.physics.arcade.collide(this.enemies, this.walls);
         game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
-        game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
+        game.physics.arcade.overlap(this.player, this.enemies, this.Deaths, null, this);
 
         this.movePlayer(); 
 
@@ -140,6 +147,26 @@ var mainState = {
         var newPosition = game.rnd.pick(coinPosition);
         this.player.reset(newPosition.x, newPosition.y);
     },
+	
+	CountDown: function()
+	{
+		this.Time -=1;
+		if(this.Time <=0)
+		{
+			game.state.start('Main');
+			
+		}
+		
+		this.TimerLabel.text='Time left:' + this.Time;
+	},
+	
+	Deaths: function(player, enemy)
+	{
+		this.Death += 0.33;
+        this.DeathLabel.text = 'Deaths:' + this.Death;
+		
+		
+	},
 };
 
 var game = new Phaser.Game(500, 340, Phaser.AUTO, 'gameDiv');
