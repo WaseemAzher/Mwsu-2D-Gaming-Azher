@@ -140,9 +140,9 @@ var mainState = {
 		
 		// Respawing the player once he leaves out of the world.
           var playerPosition = [
-            {x: 120, y: 50}, {x: 320, y: 30}, 
-            {x: 50, y: 110}, {x: 410, y: 110}, 
-            {x: 110, y: 200}, {x: 300, y: 200} 
+            {x: 125, y: 50}, {x: 220, y: 55}, {x: 305, y: 45},
+            {x: 440, y: 40}, {x: 50, y: 40}, {x: 435, y: 70}, 
+            {x: 100, y: 150}, {x: 250, y:10}, {x: 215, y: 270}
         ];
 
         for (var i = 0; i < playerPosition.length; i++) {
