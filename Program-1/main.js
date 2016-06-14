@@ -137,8 +137,8 @@ var mainState = {
     },
 
     playerDie: function(player,enemy) {
-					
-		 Respawing the player once he leaves out of the world.
+				
+		// Respawing the player once he leaves out of the world.
           var playerPosition = [
             {x: 125, y: 50}, {x: 220, y: 55}, {x: 305, y: 45},
             {x: 440, y: 40}, {x: 50, y: 40}, {x: 435, y: 70}, 
