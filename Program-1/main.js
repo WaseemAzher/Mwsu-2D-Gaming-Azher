@@ -137,15 +137,8 @@ var mainState = {
     },
 
     playerDie: function(player,enemy) {
-		
-		console.log(player);
-		console.log(enemy);
-		//enemy.animations.play('die');
-		enemy.kill();
-		enemy.destory();
-		
-		
-		/* // Respawing the player once he leaves out of the world.
+					
+		 Respawing the player once he leaves out of the world.
           var playerPosition = [
             {x: 125, y: 50}, {x: 220, y: 55}, {x: 305, y: 45},
             {x: 440, y: 40}, {x: 50, y: 40}, {x: 435, y: 70}, 
@@ -159,7 +152,7 @@ var mainState = {
         }
 
         var newPosition = game.rnd.pick(playerPosition);
-        this.player.reset(newPosition.x, newPosition.y); */
+        this.player.reset(newPosition.x, newPosition.y);
     },
 	
 	CountDown: function()
