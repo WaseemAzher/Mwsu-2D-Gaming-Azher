@@ -83,7 +83,7 @@ var playState = {
 
         if (!this.player.inWorld) {
 			
-            game.camera.shake(0.02, 900);
+            game.camera.shake(0.02, 300);
 
             this.playerDie();
         }
@@ -195,7 +195,7 @@ var playState = {
         game.camera.flash(0xffffff, 900);
 
 	    // Shake for 300ms with an intensity of 0.02
-        game.camera.shake(0.02, 900);	
+       // game.camera.shake(0.02, 500);	
 		  
 		// Call the 'startMenu' function in 1000ms
 		game.time.events.add(1000, this.startMenu, this);

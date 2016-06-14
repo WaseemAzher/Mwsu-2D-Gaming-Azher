@@ -27,7 +27,7 @@ var loadState = {
 		game.load.audio('dead', ['assets/dead.ogg', 'assets/dead.mp3']);
 		
 		// Load the music in 2 different formats in the load.js file
-        game.load.audio('music', ['assets/music.ogg', 'assets/music.mp3']);
+        game.load.audio('music', ['assets/SuperMario.ogg', 'assets/SuperMario.mp3']);
 		
 		game.load.image('pixel', 'assets/pixel.png');
 		
