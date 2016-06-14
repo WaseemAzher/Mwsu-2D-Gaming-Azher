@@ -36,9 +36,9 @@ var playState = {
 		 // Change the volume of the sound (0 = mute, 1 = full sound)
         this.music.volume = 0.5;        
         // Increase the volume from 0 to 1 over the duration specified
-        this.music.fadeIn(500);        
+        this.music.fadeIn(1000);        
         // Decrease the volume from 1 to 0 over the duration specified
-        this.music.fadeOut(500);
+        this.music.fadeOut(1000);
 		this.music.play(); // Start the music
 		
 		// Create the 'right' animation by looping the frames 1 and 2
@@ -82,6 +82,9 @@ var playState = {
 			}
 
         if (!this.player.inWorld) {
+			
+            game.camera.shake(0.02, 900);
+
             this.playerDie();
         }
     },
@@ -103,10 +106,12 @@ var playState = {
 
         if (this.cursor.up.isDown && this.player.body.touching.down) {
             this.player.body.velocity.y = -320;
+			// Add this inside the 'movePlayer' function, in the 'if(player jumps)'
+		    this.jumpSound.play();
+			
         }  
 
-		// Add this inside the 'movePlayer' function, in the 'if(player jumps)'
-		this.jumpSound.play();		
+				
     },
 
     takeCoin: function(player, coin) {
@@ -187,10 +192,10 @@ var playState = {
 		this.emitter.y = this.player.y;
 		this.emitter.start(true, 800, null, 15);
 		// Flash the color white for 300ms
-        game.camera.flash(0xffffff, 300);
+        game.camera.flash(0xffffff, 900);
 
 	    // Shake for 300ms with an intensity of 0.02
-        game.camera.shake(0.02, 300);	
+        game.camera.shake(0.02, 900);	
 		  
 		// Call the 'startMenu' function in 1000ms
 		game.time.events.add(1000, this.startMenu, this);
