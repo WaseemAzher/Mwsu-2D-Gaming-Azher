@@ -19,7 +19,17 @@ var menuState = {
 		scoreLabel.anchor.setTo(0.5, 0.5);
 	   
         // Explain how to start the game
-        var startLabel = game.add.text(game.width/2, game.height-80, 'press the up arrow key to start', { font: '25px Arial', fill: '#ffffff' });
+        //var startLabel = game.add.text(game.width/2, game.height-80, 'press the up arrow key to start', { font: '25px Arial', fill: '#ffffff' });
+		// Store the relevant text based on the device used
+		var text;
+		if (game.device.desktop) {
+		text = 'press the up arrow key to start';
+		}
+			else {
+		text = 'touch the screen to start';
+		}
+		// Display the text variable
+		var startLabel = game.add.text(game.width/2, game.height-80, text, { font: '25px Arial', fill: '#ffffff' });		
         startLabel.anchor.setTo(0.5, 0.5);
 		
 		game.add.tween(startLabel).to({angle: -2}, 500).to({angle: 2}, 1000).to({angle: 0}, 500).loop().start();
@@ -36,9 +46,10 @@ var menuState = {
 		// Then update the best score
 		localStorage.setItem('bestScore', game.global.score);
 		}
-		
-		
-		
+		if (!game.device.desktop) {
+    game.input.onDown.add(this.start, this);
+		}
+				
         // Create a new Phaser keyboard variable: the up arrow key
         // When pressed, call the 'start' function once
         var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -63,7 +74,13 @@ var menuState = {
     },
 
     start: function() {
-		// Start the actual game
+		
+		// If we tap in the top left corner of the game on mobile
+		if (!game.device.desktop && game.input.y < 50 && game.input.x < 60) {
+		// It means we want to mute the game, so we don't start the game
+		return;
+		}		
+		// Start the actual game		
         game.state.start('play');   
     },
 };

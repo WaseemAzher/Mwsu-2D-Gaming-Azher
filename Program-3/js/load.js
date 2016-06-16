@@ -35,6 +35,11 @@ var loadState = {
         game.load.spritesheet('mute', 'assets/muteButton.png', 28, 22);
 		
 		
+		game.load.image('jumpButton', 'assets/upArrow.png');
+		game.load.image('rightButton', 'assets/rightArrow.gif');
+		game.load.image('leftButton', 'assets/leftArrow.gif');
+		
+		
     },
 
     create: function() { 
