@@ -112,11 +112,11 @@ var playState = {
 		this.moveRight = false;
 		}
 				
-        if (this.cursor.left.isDown || this.moveLeft) {
+        if (this.cursor.left.isDown ||this.moveLeft ) {
             this.player.body.velocity.x = -200;
 			this.player.animations.play('left'); // Left animation
         }
-        else if (this.cursor.right.isDown || this.moveRight) {
+        else if (this.cursor.right.isDown  ||this.moveRight ) {
             this.player.body.velocity.x = 200;
 			this.player.animations.play('right'); // Right animation
         }
@@ -133,7 +133,7 @@ var playState = {
 			
         }  
 		
-		if (this.cursor.up.isDown) {
+		if (this.cursor.up.isDown || Phaser.Keyboard.W) {
         this.jumpPlayer();
 		}
 
