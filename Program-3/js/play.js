@@ -125,11 +125,11 @@ var playState = {
 		this.moveRight = false;
 		}
 				
-        if (this.cursor.left.isDown ||this.moveLeft ) {
+        if (this.cursor.left.isDown ||this.wasd.left.isDown ||this.moveLeft ) {
             this.player.body.velocity.x = -200;
 			this.player.animations.play('left'); // Left animation
         }
-        else if (this.cursor.right.isDown  ||this.moveRight ) {
+        else if (this.cursor.right.isDown  ||this.wasd.right.isDown||this.moveRight ) {
             this.player.body.velocity.x = 200;
 			this.player.animations.play('right'); // Right animation
         }
@@ -146,7 +146,7 @@ var playState = {
 			
         }  
 		
-		if (this.cursor.up.isDown || Phaser.Keyboard.W) {
+		if (this.cursor.up.isDown || this.wasd.up.isDown) {
         this.jumpPlayer();
 		}
 
@@ -244,7 +244,7 @@ var playState = {
 	
 	addMobileInputs: function() {
     // Add the jump button
-    var jumpButton = game.add.sprite(350, 240, 'jumpButton');
+    var jumpButton = game.add.sprite(440, 280, 'jumpButton');
     jumpButton.inputEnabled = true;
     jumpButton.alpha = 0.5;
 	jumpButton.events.onInputDown.add(this.jumpPlayer, this);
@@ -255,7 +255,7 @@ var playState = {
 
 
    // Add the move left button
-    var leftButton = game.add.sprite(50, 240, 'leftButton');
+    var leftButton = game.add.sprite(25, 280, 'leftButton');
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5;
 	leftButton.events.onInputOver.add(this.setLeftTrue, this);
@@ -264,7 +264,7 @@ var playState = {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
 
     // Add the move right button
-    var rightButton = game.add.sprite(130, 240, 'rightButton');
+    var rightButton = game.add.sprite(80, 280, 'rightButton');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5;
 	rightButton.events.onInputOver.add(this.setRightTrue, this);
