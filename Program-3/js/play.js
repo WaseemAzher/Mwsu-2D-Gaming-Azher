@@ -65,6 +65,13 @@ var playState = {
 		// Use no gravity
 		this.emitter.gravity = 0;
 		
+		game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP, Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT]);
+        this.wasd = {
+            up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+            left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+            right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+        };
+		
 		
 		if (!game.device.desktop) {
 			
@@ -83,8 +90,8 @@ var playState = {
     },
 
     update: function() {
-        game.physics.arcade.collide(this.player, this.walls);
-        game.physics.arcade.collide(this.enemies, this.walls);
+        game.physics.arcade.collide(this.player, this.layer);
+        game.physics.arcade.collide(this.enemies, this.layer);
         game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
         game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
 
@@ -101,6 +108,12 @@ var playState = {
 
             this.playerDie();
         }
+		
+		if ((this.cursor.up.isDown || this.wasd.up.isDown) && this.player.body.onFloor()) {
+		this.jumpSound.play();
+		this.player.body.velocity.y = -320;
+}
+		
     },
 
     movePlayer: function() {
@@ -190,24 +203,23 @@ var playState = {
     },
 
     createWorld: function() {
-        this.walls = game.add.group();
-        this.walls.enableBody = true;
+		
+		// Create the tilemap
+		this.map = game.add.tilemap('map');
 
-        game.add.sprite(0, 0, 'wallV', 0, this.walls); 
-        game.add.sprite(480, 0, 'wallV', 0, this.walls); 
-        game.add.sprite(0, 0, 'wallH', 0, this.walls); 
-        game.add.sprite(300, 0, 'wallH', 0, this.walls);
-        game.add.sprite(0, 320, 'wallH', 0, this.walls); 
-        game.add.sprite(300, 320, 'wallH', 0, this.walls); 
-        game.add.sprite(-100, 160, 'wallH', 0, this.walls); 
-        game.add.sprite(400, 160, 'wallH', 0, this.walls); 
-        var middleTop = game.add.sprite(100, 80, 'wallH', 0, this.walls);
-        middleTop.scale.setTo(1.5, 1);
-        var middleBottom = game.add.sprite(100, 240, 'wallH', 0, this.walls);
-        middleBottom.scale.setTo(1.5, 1);
+		// Add the tileset to the map
+		this.map.addTilesetImage('tileset');
 
-        this.walls.setAll('body.immovable', true);
-    },
+		// Create the layer by specifying the name of the Tiled layer
+		this.layer = this.map.createLayer('Tile Layer 1');
+
+		// Set the world size to match the size of the layer
+		this.layer.resizeWorld();
+
+		// Enable collisions for the first tilset element (the blue wall)
+		this.map.setCollision(1);
+
+          },
 
     playerDie: function() {
 		// Kill the player to make it disappear from the screen
