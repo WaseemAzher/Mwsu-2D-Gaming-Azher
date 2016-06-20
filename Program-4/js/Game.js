@@ -123,7 +123,16 @@ SpaceHipster.Game.prototype = {
     }
 
   },
-  generateAsteriods: function() {
+  
+  
+  generateAsteriods:function()
+  {
+	  this.generateAsteriod();
+	  
+  },
+  
+  
+  generateAsteriod: function() {
     this.asteroids = this.game.add.group();
 	
 	var Min;
@@ -159,18 +168,41 @@ SpaceHipster.Game.prototype = {
     //var numAsteroids = this.game.rnd.integerInRange(150, 200)
     var asteriod;
 
-    for (var i = 0; i < numAsteroids; i++) {
-      //add sprite
-      asteriod = this.asteroids.create(this.game.world.randomX, this.game.world.randomY, 'rock');
-      asteriod.scale.setTo(this.game.rnd.integerInRange(10, 40)/10);
-
-      //physics properties
-      asteriod.body.velocity.x = this.game.rnd.integerInRange(-20, 20);
-      asteriod.body.velocity.y = this.game.rnd.integerInRange(-20, 20);
-      asteriod.body.immovable = true;
+    for (var i = 0; i < numAsteroids; i++) {	  
+	  var modifier = this.game.rnd.weightedPick(a);                                        
+      var rockGap = this.game.global.skillLevel * 75;                                         
+      var spawn = {
+      x: this.game.world.randomX,
+	  y: this.game.world.randomY
+	  };
+      while ((spawn.x >= (this.game.world.centerX - rockGap) && spawn.x <= (this.game.world.centerX + rockGap)) &&
+                                                                (spawn.y >= (this.game.world.centerY - rockGap) &&
+                                                                spawn.y <= (this.game.world.centerY + rockGap))){
+                                                                                spawn.x = this.game.world.randomX;
+                                                                                spawn.y = this.game.world.randomY;
+                                                                }
+                                                               
+      //once the spawn has been checked for being in the rock gap, create it
+      asteriod = this.asteroids.create(spawn.x, spawn.y, 'rock');
+                                           
+      //scale the asteroid with respect to the weighted modifier
+      asteriod.scale.setTo(modifier / 7);
+                                               
+      //set the velocity using the modifier so larger asteroids move slower
+      asteriod.body.velocity.x = (100 / modifier) * this.game.rnd.integerInRange(-2, 2);
+      asteriod.body.velocity.y = (100 / modifier) * this.game.rnd.integerInRange(-2, 2);
+                                               
+      //set world collision and bounce of the asteroid
       asteriod.body.collideWorldBounds = true;
+      asteriod.body.bounce.x = 1;
+     asteriod.body.bounce.y = 1;
+	  
+	  
     }
-  },
+	},
+  
+  
+  
   hitAsteroid: function(player, asteroid) {
     //play explosion sound
     this.explosionSound.play();
