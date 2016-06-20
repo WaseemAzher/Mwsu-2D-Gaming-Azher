@@ -78,11 +78,12 @@ SpaceHipster.Game.prototype = {
         {
             this.player.body.angularVelocity = 300;
         }
+		
         else
         {
             this.player.body.angularVelocity = 0;
         }
-        if (this.fireButton)
+        if (this.fireButton.isDown)
         {
 			
             this.fireBullet();
@@ -124,12 +125,38 @@ SpaceHipster.Game.prototype = {
   },
   generateAsteriods: function() {
     this.asteroids = this.game.add.group();
+	
+	var Min;
+	var Max;
+
+    var a =   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];    
+    
+    if (this.game.global.skillLevel == 'easy') {
+      Min = 20;
+      Max = 50;
+    }
+
+    if (this.game.global.skillLevel == 'medium') {
+      Min = 50;
+      Max = 150;
+    }
+
+    if (this.game.global.skillLevel == 'hard') {
+      Min = 150;
+      Max = 250;
+    }
+    //enable physics in them
+    this.asteroids.enableBody = true;
+
+    //phaser's random number generator
+    var numAsteroids = this.game.rnd.integerInRange(Min, Max)
+	
     
     //enable physics in them
     this.asteroids.enableBody = true;
 
     //phaser's random number generator
-    var numAsteroids = this.game.rnd.integerInRange(150, 200)
+    //var numAsteroids = this.game.rnd.integerInRange(150, 200)
     var asteriod;
 
     for (var i = 0; i < numAsteroids; i++) {

@@ -23,6 +23,9 @@ SpaceHipster.Preload.prototype = {
     this.load.audio('collect', 'assets/audio/collect.ogg');
     this.load.audio('explosion', 'assets/audio/explosion.ogg');
 	this.load.image('bullet','assets/images/bullet.gif');
+	this.load.image('easy', 'assets/images/Easy.png');
+	this.load.image('hard', 'assets/images/hard.PNG');
+	this.load.image('medium', 'assets/images/medium.PNG');
   },
   
   
