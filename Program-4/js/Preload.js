@@ -16,7 +16,7 @@ SpaceHipster.Preload.prototype = {
 
   	//load game assets
   	this.load.image('space', 'assets/images/space.png');
-  	this.load.image('rock', 'assets/images/rock.png');
+  	this.load.image('rock', 'assets/images/rock1.png');
     this.load.spritesheet('playership', 'assets/images/player.png', 12, 12);
     this.load.spritesheet('power', 'assets/images/power.png', 12, 12);
   	this.load.image('playerParticle', 'assets/images/player-particle.png');
