@@ -1,5 +1,11 @@
 var SpaceHipster = SpaceHipster || {};
 
+var fireButton;
+var bullets;
+var bulletTime=0;
+var cursors;
+
+
 //title screen
 SpaceHipster.Game = function(){};
 
@@ -13,9 +19,7 @@ SpaceHipster.Game.prototype = {
 
     //create player
     this.player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'playership');
-    this.player.scale.setTo(2);
-    this.player.animations.add('fly', [0, 1, 2, 3], 5, true);
-    this.player.animations.play('fly');
+    this.player.scale.setTo(1.5);  
 
     //player initial score of zero
     this.playerScore = 0;
@@ -23,7 +27,8 @@ SpaceHipster.Game.prototype = {
     //enable player physics
     this.game.physics.arcade.enable(this.player);
     this.playerSpeed = 120;
-    this.player.body.collideWorldBounds = true;
+    this.player.body.drag.set(100);
+    this.player.body.maxVelocity.set(200);
 
     //the camera will follow the player in the world
     this.game.camera.follow(this.player);
@@ -36,22 +41,67 @@ SpaceHipster.Game.prototype = {
     this.showLabels();
 
     //sounds
-    this.explosionSound = this.game.add.audio('explosion');
-    console.log(this.explosionSound);
+    this.explosionSound = this.game.add.audio('explosion');    
     this.collectSound = this.game.add.audio('collect');
+	
+	//Generating Bullets
+    this.bullets = this.game.add.group();
+    this.bullets.enableBody = true;
+    this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
+    this.bullets.createMultiple(30, 'bullet');
+    this.bullets.setAll('anchor.x', -0.2);
+    this.bullets.setAll('anchor.y', 2);
+	this.bullets.setAll('outOfBoundsKill',true);
+	this.bullets.setAll('checkWorldBounds',true);
+    this.bulletTime = 0;
+	
+	//Controls
+    this.cursors = this.game.input.keyboard.createCursorKeys();
+    this.fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	
   },
   update: function() {
-    if(this.game.input.activePointer.justPressed()) {
-      
-      //move on the direction of the input
-      this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
-    }
-
+    //Player Controls
+        if (this.cursors.up.isDown)
+        {
+            this.game.physics.arcade.accelerationFromRotation(this.player.rotation, 200, this.player.body.acceleration);
+        }
+        else
+        {
+            this.player.body.acceleration.set(0);
+        }
+        if (this.cursors.left.isDown)
+        {
+            this.player.body.angularVelocity = -300;
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.player.body.angularVelocity = 300;
+        }
+        else
+        {
+            this.player.body.angularVelocity = 0;
+        }
+        if (this.fireButton)
+        {
+			
+            this.fireBullet();
+        }
+	
+	
+	
     //collision between player and asteroids
     this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
+    this.game.physics.arcade.collide(this.bullets, this.asteroids, this.destoryAsteroid, null, this);
+   
 
     //overlapping between player and collectables
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
+	
+	//Wrap-around for player and bullets
+    this.screenWrap(this.player);
+    this.bullets.forEachExists(this.screenWrap, this);
+	
   },
   generateCollectables: function() {
     this.collectables = this.game.add.group();
@@ -130,12 +180,67 @@ SpaceHipster.Game.prototype = {
     var style = { font: "20px Arial", fill: "#fff", align: "center" };
     this.scoreLabel = this.game.add.text(this.game.width-50, this.game.height - 50, text, style);
     this.scoreLabel.fixedToCamera = true;
-  }
+  },
+  
+  fireBullet: function () {
+        //Spaces between bullets
+        if (this.game.time.now > this.bulletTime)
+        {
+            bullet = this.bullets.getFirstExists(false);
+            
+            if (bullet)
+            {
+                /* bullet.scale.setTo(0, 0);
+                bullet.reset(this.player.body.x, this.player.body.y + 16);
+                bullet.lifespan = 2000;
+                bullet.rotation = this.player.rotation;
+                this.game.physics.arcade.velocityFromRotation(this.player.rotation, 400, bullet.body.velocity);
+                this.bulletTime = this.game.time.now + 50; */ 
+				 
+				bullet.reset(this.player.body.x, this.player.body.y + 16);
+				bullet.body.velocity.y= -400;
+			 	bullet.lifespan = 2000;
+			//	bullet.rotation = this.player.rotation;
+				bulletTime=this.game.time.now+200; 
+                
+               
+            }
+        }
+    },
+    
+    screenWrap: function (sprite) {
+        if (sprite.x < 0){
+            sprite.x = this.game.world.bounds.width;
+        }
+        else if (sprite.x > this.game.world.bounds.width)
+        {
+            sprite.x = 0;
+        }
+        
+        if (sprite.y < 0)
+        {
+            sprite.y = this.game.world.bounds.height;
+        }
+        else if (sprite.y > this.game.world.bounds.height)
+        {
+            sprite.y = 0;
+        }
+    },
+  
+  
+    destoryAsteroid: function(bullet, asteroid){
+        asteroid.kill();
+        bullet.kill();
+    },
+  
+  
+  
+  
+  
 };
 
 /*
 TODO
-
 -audio
 -asteriod bounch
 */

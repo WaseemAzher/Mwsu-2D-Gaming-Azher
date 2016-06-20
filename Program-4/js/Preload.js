@@ -22,7 +22,11 @@ SpaceHipster.Preload.prototype = {
   	this.load.image('playerParticle', 'assets/images/player-particle.png');
     this.load.audio('collect', 'assets/audio/collect.ogg');
     this.load.audio('explosion', 'assets/audio/explosion.ogg');
+	this.load.image('bullet','assets/images/bullet.gif');
   },
+  
+  
+  
   create: function() {
   	this.state.start('MainMenu');
   }
