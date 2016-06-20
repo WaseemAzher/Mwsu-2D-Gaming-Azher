@@ -4,13 +4,15 @@ var fireButton;
 var bullets;
 var bulletTime=0;
 var cursors;
+var asteriods;
 
 
 //title screen
 SpaceHipster.Game = function(){};
 
 SpaceHipster.Game.prototype = {
-  create: function() {
+  create: function() {  
+		  
   	//set world dimensions
     this.game.world.setBounds(0, 0, 1920, 1920);
 
@@ -94,7 +96,7 @@ SpaceHipster.Game.prototype = {
     //collision between player and asteroids
     this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
     this.game.physics.arcade.collide(this.bullets, this.asteroids, this.destoryAsteroid, null, this);
-   
+    this.game.physics.arcade.collide(this.asteroids);
 
     //overlapping between player and collectables
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
@@ -127,14 +129,18 @@ SpaceHipster.Game.prototype = {
   
   generateAsteriods:function()
   {
+	 this.asteroids = this.game.add.group();
+	 //enable physics in them
+     this.asteroids.enableBody = true; 
+	 this.asteriods = this.game.add.physicsGroup(Phaser.Physics.ARCADE);
+	  	 
 	  this.generateAsteriod();
 	  
   },
   
   
   generateAsteriod: function() {
-    this.asteroids = this.game.add.group();
-	
+    
 	var Min;
 	var Max;
 
@@ -154,15 +160,10 @@ SpaceHipster.Game.prototype = {
       Min = 150;
       Max = 250;
     }
-    //enable physics in them
-    this.asteroids.enableBody = true;
+   
 
     //phaser's random number generator
-    var numAsteroids = this.game.rnd.integerInRange(Min, Max)
-	
-    
-    //enable physics in them
-    this.asteroids.enableBody = true;
+    var numAsteroids = this.game.rnd.integerInRange(Min, Max) 
 
     //phaser's random number generator
     //var numAsteroids = this.game.rnd.integerInRange(150, 200)
@@ -192,10 +193,12 @@ SpaceHipster.Game.prototype = {
       asteriod.body.velocity.x = (100 / modifier) * this.game.rnd.integerInRange(-2, 2);
       asteriod.body.velocity.y = (100 / modifier) * this.game.rnd.integerInRange(-2, 2);
                                                
-      //set world collision and bounce of the asteroid
+      //set world collision and bounce of the asteroid 
+	  
+	  
       asteriod.body.collideWorldBounds = true;
       asteriod.body.bounce.x = 1;
-     asteriod.body.bounce.y = 1;
+      asteriod.body.bounce.y = 1;
 	  
 	  
     }
@@ -255,18 +258,43 @@ SpaceHipster.Game.prototype = {
                 bullet.rotation = this.player.rotation;
                 this.game.physics.arcade.velocityFromRotation(this.player.rotation, 400, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 50; */ 
-				 
+				 /* 
 				bullet.reset(this.player.body.x, this.player.body.y + 16);
 				bullet.body.velocity.y= -400;
 			 	bullet.lifespan = 2000;
 			//	bullet.rotation = this.player.rotation;
-				bulletTime=this.game.time.now+200; 
+				bulletTime=this.game.time.now+200;  */
+				
+				 /* bullet.reset(this.player.body.x + 16, this.player.body.y + 16);     
+				 bullet.lifespan = 2000;  
+				 bullet.rotation = this.player.rotation;   
+                 bullet.body.velocity.y= -400;				 
+                this.game.physics.arcade.velocityFromRotation(this.player.rotation, 400, bullet.body.velocity);
+				 bulletTime = this.game.time.now + 50;  */
+				
                 
+				bullet.rotation = this.player.rotation + Math.PI/2;
+                var bs = this.bulletStart(40);
+                bullet.reset(bs.dx, bs.dy);
+                //this.bullet.angularVelocity = 300;
+				bullet.body.velocity.y= -400;
+                this.game.physics.arcade.velocityFromRotation(this.player.rotation, 700,bullet.body.velocity);
+                bulletTime = this.game.time.now + 150;
+				
+				
                
             }
         }
     },
     
+	
+	bulletStart: function(d){
+        return{
+            "dx":this.player.x + d * Math.cos(this.player.body.angle),
+            "dy":this.player.y + d * Math.sin(this.player.body.angle)
+        }
+    },
+	
     screenWrap: function (sprite) {
         if (sprite.x < 0){
             sprite.x = this.game.world.bounds.width;
