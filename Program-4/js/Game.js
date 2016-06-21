@@ -252,32 +252,12 @@ SpaceHipster.Game.prototype = {
             
             if (bullet)
             {
-                /* bullet.scale.setTo(0, 0);
-                bullet.reset(this.player.body.x, this.player.body.y + 16);
-                bullet.lifespan = 2000;
-                bullet.rotation = this.player.rotation;
-                this.game.physics.arcade.velocityFromRotation(this.player.rotation, 400, bullet.body.velocity);
-                this.bulletTime = this.game.time.now + 50; */ 
-				 /* 
-				bullet.reset(this.player.body.x, this.player.body.y + 16);
-				bullet.body.velocity.y= -400;
-			 	bullet.lifespan = 2000;
-			//	bullet.rotation = this.player.rotation;
-				bulletTime=this.game.time.now+200;  */
-				
-				 /* bullet.reset(this.player.body.x + 16, this.player.body.y + 16);     
-				 bullet.lifespan = 2000;  
-				 bullet.rotation = this.player.rotation;   
-                 bullet.body.velocity.y= -400;				 
-                this.game.physics.arcade.velocityFromRotation(this.player.rotation, 400, bullet.body.velocity);
-				 bulletTime = this.game.time.now + 50;  */
-				
-                
+                             
 				bullet.rotation = this.player.rotation + Math.PI/2;
-                var bs = this.bulletStart(40);
+                var bs = this.bulletStart(20);
                 bullet.reset(bs.dx, bs.dy);
                 //this.bullet.angularVelocity = 300;
-				bullet.body.velocity.y= -400;
+				//bullet.body.velocity.y= -400;
                 this.game.physics.arcade.velocityFromRotation(this.player.rotation, 700,bullet.body.velocity);
                 bulletTime = this.game.time.now + 150;
 				

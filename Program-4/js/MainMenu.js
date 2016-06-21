@@ -38,9 +38,16 @@ SpaceHipster.MainMenu.prototype = {
     var h = this.game.add.text(this.game.width/2, this.game.height/2 + 50, text, style);
     h.anchor.set(0.5);
 	
-	var text = "Choose Difficulty";
+	var text = "Space Hipster";
+    var style = { font: "60px Arial", fill: "#fff", align: "center" };
+    var t = this.game.add.text(this.game.width/2 -20, this.game.height/2 - 200, text, style);
+    t.anchor.set(0.5);
+	
+	
+	
+	var text = "LEVELS";
     var style = { font: "30px Arial", fill: "#fff", align: "center" };
-    var t = this.game.add.text(this.game.width/2, this.game.height/2 - 150, text, style);
+    var t = this.game.add.text(this.game.width/2 -20, this.game.height/2 - 120, text, style);
     t.anchor.set(0.5);
 	
 	
