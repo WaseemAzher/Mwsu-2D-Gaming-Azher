@@ -5,7 +5,7 @@ var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload:
 
 function preload() {
 
-    game.load.tilemap('matching', 'assets/maps/maze_tiles.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('matching', 'assets/maps/Tileset.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.tileset('tiles', 'assets/tiles/phaser_mz_tiles2.png', 27, 27, -1, 1, 1);	
 
     game.load.spritesheet('chick', 'assets/sprites/chick.png', 16, 18);
