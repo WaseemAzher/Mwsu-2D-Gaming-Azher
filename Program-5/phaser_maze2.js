@@ -15,12 +15,14 @@ function preload() {
 
     game.load.spritesheet('kaboom', 'assets/sprites/boom32wh12b.png', 32, 32);
 
-    game.load.image('blue', 'assets/sprites/blue_ball.png', 17, 17);
-    game.load.image('aqua', 'assets/sprites/aqua_ball.png', 17, 17);
-    game.load.image('yellow', 'assets/sprites/yellow_ball.png', 17, 17);
-    game.load.image('purple', 'assets/sprites/purple_ball.png', 17, 17);
-    game.load.image('red', 'assets/sprites/red_ball.png', 17, 17);
-    game.load.image('green', 'assets/sprites/green_ball.png', 17, 17);
+    //game.load.image('blue', 'assets/sprites/blue_ball.png', 17, 17);
+    //game.load.image('aqua', 'assets/sprites/aqua_ball.png', 17, 17);
+   // game.load.image('yellow', 'assets/sprites/yellow_ball.png', 17, 17);
+   // game.load.image('purple', 'assets/sprites/purple_ball.png', 17, 17);
+   // game.load.image('red', 'assets/sprites/red_ball.png', 17, 17);
+   // game.load.image('green', 'assets/sprites/green_ball.png', 17, 17);
+
+	         
 
 
 
@@ -52,8 +54,8 @@ function create() {
 	display(maze(20,20));
 
 
-	player = game.add.sprite(14, 41, 'chick');
-	player.anchor.setTo(0.5, 0.5);
+  player = game.add.sprite(14, 41, 'chick');
+  player.anchor.setTo(0.5, 0.5);
   player.animations.add('walk');
   player.animations.play('walk', 10, true);
   player.body.immovable = true;
@@ -72,18 +74,18 @@ function create() {
     		  cat.direction = "left"
         }
 
-  candies = game.add.group();
+  //candies = game.add.group();
    
-  candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'blue');
-  candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'aqua');
-  candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'green');
-  candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'red');
-  candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'yellow');
-  candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'purple');
+ // candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'blue');
+ // candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'aqua');
+ // candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'green');
+ // candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'red');
+ // candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'yellow');
+ // candies.create(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'purple');
 
-  candies.setAll('anchor.x', 0.5 );
-  candies.setAll('anchor.y', 0.5 );
-  candies.setAll('scale.y', 0.75 );
+ // candies.setAll('anchor.x', 0.5 );
+ // candies.setAll('anchor.y', 0.5 );
+ // candies.setAll('scale.y', 0.75 );
     
   //  An explosion pool
     explosions = game.add.group();
@@ -94,11 +96,35 @@ function create() {
 
 
 	coin = game.add.sprite(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'coin_spin');
+	coin1 = game.add.sprite(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'coin_spin');
+	coin2 = game.add.sprite(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'coin_spin');
+	coin3 = game.add.sprite(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'coin_spin');
+	coin4 = game.add.sprite(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'coin_spin');
+	
   coin.anchor.setTo(0.5, 0.5);
   coin.animations.add('spin');
   coin.animations.play('spin', 10, true);
-  coin.scale.setTo(.5,.5);
+  coin.scale.setTo(0.5,.5);
+  
+  coin1.anchor.setTo(0.5, 0.5);
+  coin1.animations.add('spin');
+  coin1.animations.play('spin', 10, true);  
+  coin1.scale.setTo(0.5,.5);
 
+  coin2.anchor.setTo(0.5, 0.5);
+  coin2.animations.add('spin');
+  coin2.animations.play('spin', 10, true);  
+  coin2.scale.setTo(.5,.5);
+  
+  coin3.anchor.setTo(0.5, 0.5);
+  coin3.animations.add('spin');
+  coin3.animations.play('spin', 10, true);  
+  coin3.scale.setTo(.5,.5);
+  
+  coin4.anchor.setTo(0.5, 0.5);
+  coin4.animations.add('spin');
+  coin4.animations.play('spin', 10, true);  
+  coin4.scale.setTo(.5,.5);
 
     cursors = game.input.keyboard.createCursorKeys();
 }
@@ -114,10 +140,23 @@ function update() {
   //  Run collision
   game.physics.collide(player, candies, hitCandy, null, this);
   game.physics.collide(player, baddies, hitBaddie, null, this);
+  game.physics.collide(player, coin, takeCoin, null, this);
+  game.physics.collide(player, coin1, takeCoin, null, this);
+  game.physics.collide(player, coin2, takeCoin, null, this);
+  game.physics.collide(player, coin3, takeCoin, null, this);
+  game.physics.collide(player, coin4, takeCoin, null, this);
 	
 		
 	
 }
+
+
+function takeCoin(player,coin){
+	
+	coin.scale.setTo(0, 0);
+	
+}
+
 
 function setupExplosions (explosion) {
   explosion.anchor.x = 0.5;
@@ -504,14 +543,14 @@ function display(m) {
 
 function render() {
 
-	game.debug.renderText('# cellsX: ' + myString1, 630, 48, 'rgb(255,0,0)');
-	game.debug.renderText('# cellsY: ' + myString2, 630, 80, 'rgb(255,0,0)');
+	//game.debug.renderText('# cellsX: ' + myString1, 630, 48, 'rgb(255,0,0)');
+	//game.debug.renderText('# cellsY: ' + myString2, 630, 80, 'rgb(255,0,0)');
 
-	game.debug.renderText('Change dimensions', 620, 212, 'rgb(0,255,0)');
-	game.debug.renderText('at line 22:', 620, 226, 'rgb(0,255,0)');
-	game.debug.renderText('display(maze(X,Y))', 620, 240, 'rgb(0,255,0)');
+	//game.debug.renderText('Change dimensions', 620, 212, 'rgb(0,255,0)');
+	//game.debug.renderText('at line 22:', 620, 226, 'rgb(0,255,0)');
+	//game.debug.renderText('display(maze(X,Y))', 620, 240, 'rgb(0,255,0)');
 
-	game.debug.renderText('(reload for new maze)', 220, 14, 'rgb(255,255,255)');
+	//game.debug.renderText('(reload for new maze)', 220, 14, 'rgb(255,255,255)');
 
 	// game.debug.renderText('currentTile: ' + currentTile, 620, 300, 'rgb(255,0,0)');
 	// game.debug.renderText('tileAbove: ' + tileAbove, 620, 332, 'rgb(255,0,0)');
@@ -519,7 +558,7 @@ function render() {
 	// game.debug.renderText('tileLeft: ' + tileLeft, 620, 396, 'rgb(255,0,0)');	
 	// game.debug.renderText('tileRight: ' + tileRight, 620, 428, 'rgb(255,0,0)');	
 
-	game.debug.renderText('(sX-14) % 27: ' + (storedX-14) % 27, 620, 460, 'rgb(255,0,0)');	
-	game.debug.renderText('(sY-14) % 27: ' + (storedY-14) % 27, 620, 492, 'rgb(255,0,0)');
+	//game.debug.renderText('(sX-14) % 27: ' + (storedX-14) % 27, 620, 460, 'rgb(255,0,0)');	
+	//game.debug.renderText('(sY-14) % 27: ' + (storedY-14) % 27, 620, 492, 'rgb(255,0,0)');
 
 }
