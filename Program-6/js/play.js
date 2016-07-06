@@ -202,7 +202,7 @@ function Player(index, game, proxyServer) {
     this.state = {alive : true, 
 				tint: this.tint,
 				x : this.x,
-				y : this.y};             // state info about player
+				y : this.y};            // state info about player
 
     this.health = 30;                                                               // player health 
     this.startTime = this.game.time.time;;                                          // starting game time  

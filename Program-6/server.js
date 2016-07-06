@@ -88,6 +88,7 @@ eurecaServer.exports.handshake = function()
 		for (var cc in players)
 		{	
 			//send latest known position
+			
 			var x = players[cc].laststate ? players[cc].laststate.x:  0;
 			var y = players[cc].laststate ? players[cc].laststate.y:  0;
 			
