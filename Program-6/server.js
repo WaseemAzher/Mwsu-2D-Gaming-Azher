@@ -86,13 +86,15 @@ eurecaServer.exports.handshake = function()
 	{
 		var remote = players[c].remote;
 		for (var cc in players)
-		{		
-			remote.spawnEnemy(players[cc].id,players[cc].state);		
+		{	
+			//send latest known position
+			var x = players[cc].laststate ? players[cc].laststate.x:  0;
+			var y = players[cc].laststate ? players[cc].laststate.y:  0;
+			
+			remote.spawnEnemy(players[cc].id, players[cc].state, x, y);		
 		}
 	}
 }
-
-
 
 
 app.get('/', function (req, res, next) {
